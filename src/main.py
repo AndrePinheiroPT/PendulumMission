@@ -19,8 +19,8 @@ def led_state(color):
     for i in range(3, 5):
         for j in range(3, 5):
             sense.set_pixel(i, j, color)
-led_state((0, 255, 0))
 
+led_state((0, 255, 0))
 
 def check_joystick(event):
     global can_plot, start
@@ -34,8 +34,7 @@ def main():
     
     end = time()
     t = round(end - start, 2)
-    raw = sense.get_accelerometer_raw()
-    pitch_x = round(acos((raw['x'] if raw['x'] >= -1 else -1) if raw['x'] <= 1 else 1) - pi/2, 3)
+    pitch_x = round(sense.get_orientation_radians()['pitch'], 3)
     print(f'Pitch x: {pitch_x}  Time: {t}')
 
     sense.stick.direction_any = check_joystick
