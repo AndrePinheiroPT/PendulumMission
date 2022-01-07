@@ -34,7 +34,9 @@ def main():
     
     end = time()
     t = round(end - start, 2)
-    pitch_x = round(sense.get_orientation_radians()['pitch'], 3)
+    raw = sense.get_accelerometer_raw()
+    pitch_x = round(sense.get_orientation_radians()['pitch'] + pi/2, 3)*(-1 if raw['z'] >= 0 else 1)
+    
     print(f'Pitch x: {pitch_x}  Time: {t}')
 
     sense.stick.direction_any = check_joystick
@@ -42,7 +44,7 @@ def main():
         plot.cartesian_plane()
         dots.append([t, pitch_x])
         for d in dots:
-            plot.dot(d)
+            plot.dot(d, **{'radius':1})
 
         file = open('data.txt', 'a')
         file.write(f'\n[{t}, {pitch_x}]')

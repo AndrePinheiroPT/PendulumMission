@@ -537,13 +537,13 @@ class Graph:
         :kwargs: additional information
         '''
         config = {
-            'stroke': 3
+            'radius': 3
         }
         for key, value in kwargs.items():
             config.update({key: value})
         # plots the dot
         integer_coords = [round(self.convert_to_pygame(*coords)[0]), round(self.convert_to_pygame(*coords)[1])]
-        pygame.draw.circle(self.surface, color, integer_coords, 5)
+        pygame.draw.circle(self.surface, color, integer_coords, config['radius'])
 
     def circle(self, coords, radius, color=YELLOW, **kwargs):
         '''
